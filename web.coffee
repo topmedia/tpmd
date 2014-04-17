@@ -29,6 +29,20 @@ app.post '/notify/new_ticket', (req, res) ->
       username: process.env.SLACK_USERNAME || 'autotask'
     res.send 200
 
+app.post '/notify/ticket_assigned', (req, res) ->
+  form = new formidable.IncomingForm()
+  form.parse req, (err, fields, files) ->
+    ticket = JSON.parse fields.plain
+    slack.send
+      text: """
+        :ticket:  *Ticket assigned:* #{ticket.title}
+        :boy:  *To:* #{ticket.assignee}
+        #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
+        """
+      channel: process.env.SLACK_CHANNEL || '#test'
+      username: process.env.SLACK_USERNAME || 'autotask'
+    res.send 200
+
 port = Number process.env.PORT || 5000
 app.listen port, ->
   console.log "Listening on #{port}"
