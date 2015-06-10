@@ -9,10 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "logfmt": "^1.1.2",
-    "express": "^4.0.0",
-    "node-slack": "0.0.3",
     "coffee-script": "^1.7.1",
-    "formidable": "^1.0.14"
+    "express": "^4.0.0",
+    "formidable": "^1.0.14",
+    "jade": "^1.10.0",
+    "logfmt": "^1.1.2",
+    "node-slack": "0.0.3"
   }
 }

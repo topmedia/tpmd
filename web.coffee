@@ -11,6 +11,12 @@ slack = new Slack 'topmedia', process.env.SLACK_TOKEN
 
 app = express()
 app.use logfmt.requestLogger()
+app.set 'views', './views'
+app.set 'view engine', 'jade'
+app.use express.static('public')
+
+app.get '/largetype/:number', (req, res) ->
+  res.render 'largetype', message: req.params.number
 
 app.get '/at/:code/:argument/:value', (req, res) ->
   res.redirect "#{config.autotask_base}Code=#{req.params.code}&#{req.params.argument}=#{req.params.value}"
