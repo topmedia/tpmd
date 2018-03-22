@@ -101,6 +101,22 @@ app.post '/notify/ticket_assigned', (req, res) ->
 
     res.send 200
 
+app.post '/notify/ticket_escalated', (req, res) ->
+  form = new formidable.IncomingForm()
+  form.parse req, (err, fields, files) ->
+    try
+      ticket = JSON.parse fields.plain
+      slack.send
+        text: """
+          :bomb:  *Ticket an Level 2 eskaliert:* #{ticket.title}
+          :office:  *Kunde:* #{ticket.account}
+          #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
+          """
+        channel: process.env.SLACK_CHANNEL || '#test'
+        username: process.env.SLACK_USERNAME || 'autotask'
+
+    res.send 200
+
 port = Number process.env.PORT || 5000
 app.listen port, ->
   console.log "Listening on #{port}"
