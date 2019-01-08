@@ -124,7 +124,7 @@ app.post '/notify/ticket_escalated', (req, res) ->
       ticket = JSON.parse fields.plain
       slack.send
         text: """
-          :bomb:  *Ticket an Level 2 eskaliert:* #{ticket.title}
+          :bomb:  *Ticket an #{ticket.queue} eskaliert:* #{ticket.title}
           :office:  *Kunde:* #{ticket.account}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
           """
