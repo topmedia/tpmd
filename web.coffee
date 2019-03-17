@@ -3,7 +3,7 @@ logfmt = require 'logfmt'
 formidable = require 'formidable'
 
 config =
-  autotask_base: 'https://ww7.autotask.net/Autotask/AutotaskExtend/ExecuteCommand.aspx?'
+  autotask_base: 'https://ww18.autotask.net/Autotask/AutotaskExtend/ExecuteCommand.aspx?'
   short_url: 'http://tpmd.co/at/'
 
 Slack = require 'node-slack'
