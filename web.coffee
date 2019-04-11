@@ -114,6 +114,7 @@ app.post '/notify/ticket_assigned', (req, res) ->
       slack.send
         text: """
           :hammer:  *Ticket zugewiesen:* #{ticket.title}
+          :office:  *Kunde:* #{ticket.account}
           :boy:  *An:* #{ticket.assignee}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
           """
