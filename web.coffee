@@ -6,6 +6,7 @@ config =
   autotask_base: 'https://ww18.autotask.net/Autotask/AutotaskExtend/ExecuteCommand.aspx?'
   short_url: 'http://tpmd.co/at/'
 
+console.log process.env.SLACK_TOKEN
 Slack = require 'node-slack'
 slack = new Slack 'topmedia', process.env.SLACK_TOKEN
 
@@ -37,6 +38,9 @@ app.post '/notify/new_ticket', (req, res) ->
           """
         channel: process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
+    catch e
+      console.log e
+      console.log fields.plain
 
     res.sendStatus 200
 
@@ -72,7 +76,6 @@ app.post '/notify/new_alarm', (req, res) ->
     catch e
       console.log e
       console.log fields.plain
-      console.log sanitize_quotes fields.plain
 
     console.log success
     res.sendStatus 200
