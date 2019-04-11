@@ -58,7 +58,7 @@ app.post '/notify/new_alarm', (req, res) ->
   form.parse req, (err, fields, files) ->
     try
       ticket = JSON.parse fields.plain
-      slack.send
+      success = slack.send
         text: """
           :ticket:  *Neuer Alarm:* #{ticket.title}
           :office:  *Kunde:* #{ticket.account}
@@ -67,7 +67,7 @@ app.post '/notify/new_alarm', (req, res) ->
         channel: process.env.SLACK_CHANNEL_AEM || process.env.SLACK_CHANNEL || process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
 
-    res.send 200
+    res.send success ? 200 : 500
 
 app.post '/notify/closed_ticket', (req, res) ->
   form = new formidable.IncomingForm()
