@@ -6,7 +6,6 @@ config =
   autotask_base: 'https://ww18.autotask.net/Autotask/AutotaskExtend/ExecuteCommand.aspx?'
   short_url: 'http://tpmd.co/at/'
 
-console.log process.env.SLACK_TOKEN
 Slack = require 'node-slack'
 slack = new Slack 'topmedia', process.env.SLACK_TOKEN
 
