@@ -7,7 +7,7 @@ config =
   short_url: 'http://tpmd.co/at/'
 
 Slack = require 'node-slack'
-slack = new Slack 'topmedia', process.env.SLACK_TOKEN
+slack = new Slack process.env.SLACK_TOKEN
 
 sanitize_quotes = (string) ->
   string.replace /(: )""|""(,)/g, "$1\"$2"
@@ -73,7 +73,7 @@ app.post '/notify/new_alarm', (req, res) ->
       console.log e
 
     console.log success
-    res.sendStatus if success then 200 else 500
+    res.sendStatus if success.failed then 500 else 200
 
 app.post '/notify/closed_ticket', (req, res) ->
   form = new formidable.IncomingForm()
