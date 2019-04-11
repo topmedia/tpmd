@@ -71,6 +71,8 @@ app.post '/notify/new_alarm', (req, res) ->
         username: process.env.SLACK_USERNAME || 'autotask'
     catch e
       console.log e
+      console.log fields.plain
+      console.log sanitize_quotes fields.plain
 
     console.log success
     res.sendStatus 200
