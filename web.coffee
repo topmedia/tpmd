@@ -35,7 +35,7 @@ app.post '/notify/new_ticket', (req, res) ->
         channel: process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
 
-    res.send 200
+    res.sendStatus 200
 
 app.post '/notify/new_sales', (req, res) ->
   form = new formidable.IncomingForm()
@@ -51,7 +51,7 @@ app.post '/notify/new_sales', (req, res) ->
         channel: process.env.SLACK_CHANNEL_SALES || '#vertrieb'
         username: process.env.SLACK_USERNAME || 'autotask'
 
-    res.send 200
+    res.sendStatus 200
 
 app.post '/notify/new_alarm', (req, res) ->
   form = new formidable.IncomingForm()
@@ -67,7 +67,7 @@ app.post '/notify/new_alarm', (req, res) ->
         channel: process.env.SLACK_CHANNEL_AEM || process.env.SLACK_CHANNEL || process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
 
-    res.send if success then 200 else 500
+    res.sendStatus if success then 200 else 500
 
 app.post '/notify/closed_ticket', (req, res) ->
   form = new formidable.IncomingForm()
@@ -83,7 +83,7 @@ app.post '/notify/closed_ticket', (req, res) ->
         channel: process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
 
-    res.send 200
+    res.sendStatus 200
 
 app.post '/notify/closed_alarm', (req, res) ->
   form = new formidable.IncomingForm()
@@ -99,7 +99,7 @@ app.post '/notify/closed_alarm', (req, res) ->
         channel: process.env.SLACK_CHANNEL_AEM || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
 
-    res.send 200
+    res.sendStatus 200
 
 app.post '/notify/ticket_assigned', (req, res) ->
   form = new formidable.IncomingForm()
@@ -115,7 +115,7 @@ app.post '/notify/ticket_assigned', (req, res) ->
         channel: process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
 
-    res.send 200
+    res.sendStatus 200
 
 app.post '/notify/ticket_escalated', (req, res) ->
   form = new formidable.IncomingForm()
@@ -131,7 +131,7 @@ app.post '/notify/ticket_escalated', (req, res) ->
         channel: process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
 
-    res.send 200
+    res.sendStatus 200
 
 port = Number process.env.PORT || 5000
 app.listen port, ->
