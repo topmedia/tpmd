@@ -11,7 +11,7 @@ Slack = require 'node-slack'
 slack = new Slack 'topmedia', process.env.SLACK_TOKEN
 
 sanitize_quotes = (string) ->
-  string.replace /(: )""|""(,)/g, "$1\"$2"
+  string.replace /: ""(.+)"",/g, ": \"$1\","
 
 app = express()
 app.use logfmt.requestLogger()
