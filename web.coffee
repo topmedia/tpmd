@@ -67,7 +67,7 @@ app.post '/notify/new_alarm', (req, res) ->
         channel: process.env.SLACK_CHANNEL_AEM || process.env.SLACK_CHANNEL || process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
 
-    res.send success ? 200 : 500
+    res.send if success then 200 else 500
 
 app.post '/notify/closed_ticket', (req, res) ->
   form = new formidable.IncomingForm()
