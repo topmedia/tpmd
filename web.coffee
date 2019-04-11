@@ -72,6 +72,7 @@ app.post '/notify/new_alarm', (req, res) ->
     catch e
       console.log e
 
+    console.log success
     res.sendStatus if success then 200 else 500
 
 app.post '/notify/closed_ticket', (req, res) ->
