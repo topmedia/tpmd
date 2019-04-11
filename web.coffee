@@ -9,6 +9,9 @@ config =
 Slack = require 'node-slack'
 slack = new Slack 'topmedia', process.env.SLACK_TOKEN
 
+sanitize_quotes = (string) ->
+  string.replace /(: )""|""(,)/g, "$1\"$2"
+
 app = express()
 app.use logfmt.requestLogger()
 app.set 'views', './views'
@@ -25,7 +28,7 @@ app.post '/notify/new_ticket', (req, res) ->
   form = new formidable.IncomingForm()
   form.parse req, (err, fields, files) ->
     try
-      ticket = JSON.parse fields.plain
+      ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
           :ticket:  *Neues Ticket:* #{ticket.title}
@@ -41,7 +44,7 @@ app.post '/notify/new_sales', (req, res) ->
   form = new formidable.IncomingForm()
   form.parse req, (err, fields, files) ->
     try
-      ticket = JSON.parse fields.plain
+      ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
           :ticket:  *Neues Ticket:* #{ticket.title}
@@ -57,7 +60,7 @@ app.post '/notify/new_alarm', (req, res) ->
   form = new formidable.IncomingForm()
   form.parse req, (err, fields, files) ->
     try
-      ticket = JSON.parse fields.plain
+      ticket = JSON.parse sanitize_quotes fields.plain
       success = slack.send
         text: """
           :ticket:  *Neuer Alarm:* #{ticket.title}
@@ -66,6 +69,8 @@ app.post '/notify/new_alarm', (req, res) ->
           """
         channel: process.env.SLACK_CHANNEL_AEM || process.env.SLACK_CHANNEL || process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
+    catch e
+      console.log e
 
     res.sendStatus if success then 200 else 500
 
@@ -73,7 +78,7 @@ app.post '/notify/closed_ticket', (req, res) ->
   form = new formidable.IncomingForm()
   form.parse req, (err, fields, files) ->
     try
-      ticket = JSON.parse fields.plain
+      ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
           :white_check_mark:  *Ticket abgeschlossen:* #{ticket.title}
@@ -89,7 +94,7 @@ app.post '/notify/closed_alarm', (req, res) ->
   form = new formidable.IncomingForm()
   form.parse req, (err, fields, files) ->
     try
-      ticket = JSON.parse fields.plain
+      ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
           :white_check_mark:  *Alarm geschlossen:* #{ticket.title}
@@ -105,7 +110,7 @@ app.post '/notify/ticket_assigned', (req, res) ->
   form = new formidable.IncomingForm()
   form.parse req, (err, fields, files) ->
     try
-      ticket = JSON.parse fields.plain
+      ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
           :hammer:  *Ticket zugewiesen:* #{ticket.title}
@@ -121,7 +126,7 @@ app.post '/notify/ticket_escalated', (req, res) ->
   form = new formidable.IncomingForm()
   form.parse req, (err, fields, files) ->
     try
-      ticket = JSON.parse fields.plain
+      ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
           :bomb:  *Ticket an #{ticket.queue} eskaliert:* #{ticket.title}
