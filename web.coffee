@@ -88,6 +88,7 @@ app.post '/notify/closed_ticket', (req, res) ->
         text: """
           :white_check_mark:  *Ticket abgeschlossen:* #{ticket.title}
           :office:  *Kunde:* #{ticket.account}
+          :boy:  *Von:* #{ticket.assignee}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
           """
         channel: process.env.SLACK_CHANNEL || '#test'
