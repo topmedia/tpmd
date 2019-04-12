@@ -33,6 +33,7 @@ app.post '/notify/new_ticket', (req, res) ->
         text: """
           :ticket:  *Neues Ticket:* #{ticket.title}
           :office:  *Kunde:* #{ticket.account}
+          :flags:   *Priorität:* #{ticket.priority}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
           """
         channel: process.env.SLACK_CHANNEL || '#test'
