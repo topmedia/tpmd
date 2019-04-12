@@ -31,12 +31,12 @@ app.post '/notify/new_ticket', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :ticket:     *Neues Ticket:* #{ticket.title}
-          :office:     *Kunde:* #{ticket.account}
-          :flags:      *Priorität:* #{ticket.priority}
+          :ticket: *Neues Ticket:* #{ticket.title}
+          :office: *Kunde:* #{ticket.account}
+          :flags: *Priorität:* #{ticket.priority}
           :inbox_tray: *Queue:* #{ticket.queue}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
-          #{'@1stlevel' if ticket.priority == 'Kritisch'}
+          #{('@1stlevel' if ticket.priority == 'Kritisch') || ''}
           """
         channel: process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
@@ -53,8 +53,8 @@ app.post '/notify/new_sales', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :ticket:  *Neues Ticket:* #{ticket.title}
-          :office:  *Kunde:* #{ticket.account}
+          :ticket: *Neues Ticket:* #{ticket.title}
+          :office: *Kunde:* #{ticket.account}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
           """
         channel: process.env.SLACK_CHANNEL_SALES || '#vertrieb'
@@ -69,8 +69,8 @@ app.post '/notify/new_alarm', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       success = slack.send
         text: """
-          :ticket:  *Neuer Alarm:* #{ticket.title}
-          :office:  *Kunde:* #{ticket.account}
+          :ticket: *Neuer Alarm:* #{ticket.title}
+          :office: *Kunde:* #{ticket.account}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
           """
         channel: process.env.SLACK_CHANNEL_AEM || process.env.SLACK_CHANNEL || process.env.SLACK_CHANNEL || '#test'
@@ -89,9 +89,9 @@ app.post '/notify/closed_ticket', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :heavy_check_mark:  *Ticket abgeschlossen:* #{ticket.title}
-          :office:  *Kunde:* #{ticket.account}
-          :boy:  *Von:* #{ticket.assignee}
+          :heavy_check_mark: *Ticket abgeschlossen:* #{ticket.title}
+          :office: *Kunde:* #{ticket.account}
+          :boy: *Von:* #{ticket.assignee}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
           """
         channel: process.env.SLACK_CHANNEL || '#test'
@@ -106,8 +106,8 @@ app.post '/notify/closed_alarm', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :heavy_check_mark:  *Alarm geschlossen:* #{ticket.title}
-          :office:  *Kunde:* #{ticket.account}
+          :heavy_check_mark: *Alarm geschlossen:* #{ticket.title}
+          :office: *Kunde:* #{ticket.account}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
           """
         channel: process.env.SLACK_CHANNEL_AEM || '#test'
@@ -122,9 +122,9 @@ app.post '/notify/ticket_assigned', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :hammer:  *Ticket zugewiesen:* #{ticket.title}
-          :office:  *Kunde:* #{ticket.account}
-          :boy:  *An:* #{ticket.assignee}
+          :hammer: *Ticket zugewiesen:* #{ticket.title}
+          :office: *Kunde:* #{ticket.account}
+          :boy: *An:* #{ticket.assignee}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
           """
         channel: process.env.SLACK_CHANNEL || '#test'
@@ -139,8 +139,8 @@ app.post '/notify/ticket_escalated', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :bomb:  *Ticket an #{ticket.queue} eskaliert:* #{ticket.title}
-          :office:  *Kunde:* #{ticket.account}
+          :bomb: *Ticket an #{ticket.queue} eskaliert:* #{ticket.title}
+          :office: *Kunde:* #{ticket.account}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
           """
         channel: process.env.SLACK_CHANNEL || '#test'
