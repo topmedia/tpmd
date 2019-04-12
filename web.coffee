@@ -89,7 +89,7 @@ app.post '/notify/closed_ticket', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :heavy_check_mark: *Ticket abgeschlossen:* #{ticket.title}
+          :green_heart: *Ticket abgeschlossen:* #{ticket.title}
           :office: *Kunde:* #{ticket.account}
           :boy: *Von:* #{ticket.assignee}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
@@ -106,7 +106,7 @@ app.post '/notify/closed_alarm', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :heavy_check_mark: *Alarm geschlossen:* #{ticket.title}
+          :green_heart: *Alarm geschlossen:* #{ticket.title}
           :office: *Kunde:* #{ticket.account}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
           """
