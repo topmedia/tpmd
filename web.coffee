@@ -31,10 +31,12 @@ app.post '/notify/new_ticket', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :ticket:  *Neues Ticket:* #{ticket.title}
-          :office:  *Kunde:* #{ticket.account}
-          :flags:   *Priorität:* #{ticket.priority}
+          :ticket:     *Neues Ticket:* #{ticket.title}
+          :office:     *Kunde:* #{ticket.account}
+          :flags:      *Priorität:* #{ticket.priority}
+          :inbox_tray: *Queue:* #{ticket.queue}
           #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
+          #{'@1stlevel' if ticket.priority == 'Kritisch'}
           """
         channel: process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
