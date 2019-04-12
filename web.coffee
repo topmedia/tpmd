@@ -40,6 +40,7 @@ app.post '/notify/new_ticket', (req, res) ->
           """
         channel: process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
+        link_names: 1
     catch e
       console.log e
       console.log fields.plain
