@@ -35,7 +35,7 @@ app.post '/notify/new_ticket', (req, res) ->
           :office: *Kunde:* #{ticket.account}
           :flags: *Priorität:* #{ticket.priority}
           :inbox_tray: *Queue:* #{ticket.queue}
-          #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
+          #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
           #{('@1stlevel' if ticket.priority == 'Kritisch') || ''}
           """
         channel: process.env.SLACK_CHANNEL || '#test'
@@ -56,7 +56,7 @@ app.post '/notify/new_sales', (req, res) ->
         text: """
           :ticket: *Neues Ticket:* #{ticket.title}
           :office: *Kunde:* #{ticket.account}
-          #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
+          #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
           """
         channel: process.env.SLACK_CHANNEL_SALES || '#vertrieb'
         username: process.env.SLACK_USERNAME || 'autotask'
@@ -72,7 +72,7 @@ app.post '/notify/new_alarm', (req, res) ->
         text: """
           :ticket: *Neuer Alarm:* #{ticket.title}
           :office: *Kunde:* #{ticket.account}
-          #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
+          #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
           """
         channel: process.env.SLACK_CHANNEL_AEM || process.env.SLACK_CHANNEL || process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
@@ -93,7 +93,7 @@ app.post '/notify/closed_ticket', (req, res) ->
           :green_heart: *Ticket abgeschlossen:* #{ticket.title}
           :office: *Kunde:* #{ticket.account}
           :boy: *Von:* #{ticket.assignee}
-          #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
+          #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
           """
         channel: process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
@@ -109,7 +109,7 @@ app.post '/notify/closed_alarm', (req, res) ->
         text: """
           :green_heart: *Alarm geschlossen:* #{ticket.title}
           :office: *Kunde:* #{ticket.account}
-          #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
+          #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
           """
         channel: process.env.SLACK_CHANNEL_AEM || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
@@ -126,7 +126,7 @@ app.post '/notify/ticket_assigned', (req, res) ->
           :hammer: *Ticket zugewiesen:* #{ticket.title}
           :office: *Kunde:* #{ticket.account}
           :boy: *An:* #{ticket.assignee}
-          #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
+          #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
           """
         channel: process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
@@ -142,7 +142,7 @@ app.post '/notify/ticket_escalated', (req, res) ->
         text: """
           :bomb: *Ticket an #{ticket.queue} eskaliert:* #{ticket.title}
           :office: *Kunde:* #{ticket.account}
-          #{config.short_url}OpenTicketDetail/TicketNumber/#{ticket.ticket_no}
+          #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
           """
         channel: process.env.SLACK_CHANNEL || '#test'
         username: process.env.SLACK_USERNAME || 'autotask'
