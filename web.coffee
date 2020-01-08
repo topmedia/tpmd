@@ -31,7 +31,7 @@ app.post '/notify/new_ticket', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :ticket: *Neues Ticket:* #{ticket.title}
+          :ticket: *Neues Ticket:* #{ticket.ticket_no} #{ticket.title}
           :office: *Kunde:* #{ticket.account}
           :flags: *Priorität:* #{ticket.priority}
           :inbox_tray: *Queue:* #{ticket.queue}
@@ -54,7 +54,7 @@ app.post '/notify/new_sales', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :ticket: *Neues Ticket:* #{ticket.title}
+          :ticket: *Neues Ticket:* #{ticket.ticket_no} #{ticket.title}
           :office: *Kunde:* #{ticket.account}
           #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
           """
@@ -70,7 +70,7 @@ app.post '/notify/new_alarm', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       success = slack.send
         text: """
-          :ticket: *Neuer Alarm:* #{ticket.title}
+          :ticket: *Neuer Alarm:* #{ticket.ticket_no} #{ticket.title}
           :office: *Kunde:* #{ticket.account}
           #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
           """
@@ -90,7 +90,7 @@ app.post '/notify/closed_ticket', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :green_heart: *Ticket abgeschlossen:* #{ticket.title}
+          :green_heart: *Ticket abgeschlossen:* #{ticket.ticket_no} #{ticket.title}
           :office: *Kunde:* #{ticket.account}
           :boy: *Von:* #{ticket.assignee}
           #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
@@ -107,7 +107,7 @@ app.post '/notify/closed_alarm', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :green_heart: *Alarm geschlossen:* #{ticket.title}
+          :green_heart: *Alarm geschlossen:* #{ticket.ticket_no} #{ticket.title}
           :office: *Kunde:* #{ticket.account}
           #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
           """
@@ -123,7 +123,7 @@ app.post '/notify/ticket_assigned', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :hammer: *Ticket zugewiesen:* #{ticket.title}
+          :hammer: *Ticket zugewiesen:* #{ticket.ticket_no} #{ticket.title}
           :office: *Kunde:* #{ticket.account}
           :boy: *An:* #{ticket.assignee}
           #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
@@ -140,7 +140,7 @@ app.post '/notify/ticket_escalated', (req, res) ->
       ticket = JSON.parse sanitize_quotes fields.plain
       slack.send
         text: """
-          :bomb: *Ticket an #{ticket.queue} eskaliert:* #{ticket.title}
+          :bomb: *Ticket an #{ticket.queue} eskaliert:* #{ticket.ticket_no} #{ticket.title}
           :office: *Kunde:* #{ticket.account}
           #{config.short_url}OpenTicketDetail/TicketID/#{ticket.ticket_id}
           """
